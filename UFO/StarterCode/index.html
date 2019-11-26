@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>UFO Finder</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+
+<body>
+  <div class="wrapper">
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="index.html">UFO Sightings
+            <img class="nav-ufo" src="static/images/ufo.svg">
+          </a>
+        </div>
+      </div>
+    </nav>
+    <div class="hero text-center">
+      <h1>UFO Sightings</h1>
+      <p>The Truth is Out There</p>
+    </div>
+    <div class="container">
+      <div class="row margin-top-50">
+        <div class="col-md-2">
+          <aside class="filters">
+            <div class="panel panel-default">
+              <h3 style="text-align:center;"><b>Filter Search</b></h3>
+              <div class="panel-body">
+                <form>
+                  <div class="form-group">
+                    <ul class="list-group" id="filters">
+                      <li class="filter list-group-item">
+
+                        <label for="date">Enter a Date</label>
+                        <input class="form-control" id="datetime" type="text" placeholder="m/d/yyyy">
+
+                        <label for="State">Enter State</label>
+                        <input class="form-control" id="state" type="text" placeholder="2-letters">
+
+                        <label for="City">Enter City</label>
+                        <input class="form-control" id="city" type="text" placeholder="">
+
+                        <label for="Shape">Choose Shape</label>
+
+                        <div class="form-actions">
+                            <div class="dropdown">
+
+                                  <select aria-labelledby="dropdownMenu2" id="dropdownMenu2">
+                                  <option class="dropdown-item" value=""></option>
+                                  <option class="dropdown-item" value="chevron">chevron</option>
+                                  <option class="dropdown-item" value="cigar">cigar</option>
+                                  <option class="dropdown-item" value="circle">circle</option>
+                                  <option class="dropdown-item" value="cross">cross</option>
+                                  <option class="dropdown-item" value="cylinder">cylinder</option>
+                                  <option class="dropdown-item" value="disk">disk</option>
+                                  <option class="dropdown-item" value="fireball">fireball</option>
+                                  <option class="dropdown-item" value="formation">formation</option>
+                                  <option class="dropdown-item" value="light">light</option>
+                                  <option class="dropdown-item" value="oval">oval</option>
+                                  <option class="dropdown-item" value="rectangle">rectangle</option>
+                                  <option class="dropdown-item" value="sphere">sphere</option>
+                                  <option class="dropdown-item" value="teardrop">teardrop</option>
+                                  <option class="dropdown-item" value="triangle">triangle</option>
+                                  <option class="dropdown-item" value="changing">changing</option>
+                                  <option class="dropdown-item" value="other">other</option>
+                                  <option class="dropdown-item" value="unknown">unknown</option>
+                                </select>
+                              </div>
+                            </div>
+
+                      </li>
+                    </ul>
+                  </div>
+                  
+                  <div class="form-actions">
+                  <button id="filter-btn" type="button" class="btn btn-dark">Click to Filter</button>
+                  </div>
+
+                <div class="row margin-top-50">
+                  <div class="panel panel-default" id="Report">
+                    <h3 style="text-align:center;">Generate Report</h3>
+                    <div class="panel-body">
+                        <div class="form-actions">
+                        <input type="button" id="btnExport" value="Export" onclick="Export()" style="display: none;" />
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                  
+                </form>
+              </div>
+            </div>
+          </aside>
+        </div>
+        <div class="col-md-10">
+          <div id="table-area" class="">
+            <table id="ufo-table" class="table table-hover">
+              <thead class="thead-dark">
+                <tr>
+                  <th class="table-head">Date</th>
+                  <th class="table-head">City</th>
+                  <th class="table-head">State</th>
+                  <th class="table-head">Country</th>
+                  <th class="table-head">Shape</th>
+                  <th class="table-head">Duration</th>
+                  <th class="table-head">Comments</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="footer">
+      <span class="bottom">UFO Sightings</span>
+    </footer>
+  </div>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+  <script type="text/javascript">
+      function Export() {
+          html2canvas(document.getElementById('ufo-table'), {
+              onrendered: function (canvas) {
+                  var data = canvas.toDataURL();
+                  var docDefinition = {
+                      content: [{
+                          image: data,
+                          width: 500
+                      }]
+                  };
+                  pdfMake.createPdf(docDefinition).download("Table.pdf");
+              }
+          });
+      }
+  </script>
+
+
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.js"></script>
+  <script src="static/js/data.js"></script>
+  <script src="static/js/app.js"></script>
+  
+</body>
+
+</html>
